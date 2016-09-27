@@ -8,6 +8,7 @@ listnode *listnode_create(int val, char *key)
 
     p->val = val;
     p->key = new char[strlen(key)];
+    p->next = NULL;
     strcpy(p->key, key);
 
     return p;
@@ -32,6 +33,13 @@ listnode *listnode_add(listnode *root, int val, char *key)
     return root;
 }
 
+listnode *listnode_addfront(listnode *root, int val, char *key)
+{
+    listnode *node = listnode_create(val, key);
+    if (!node) return NULL;
+    node->next = root;
+    return node;
+}
 
 listnode *listnode_add_after(listnode *root, int val, char *key, int k)
 {
@@ -89,6 +97,34 @@ listnode *listnode_delete(listnode *root, int k)
     return root;
 }
 
+listnode *listnode_delete_node(listnode *root, listnode *puziko)
+{
+    listnode *p = root;
+    listnode *prev, *next;
+    if (!puziko) return NULL;
+
+    for ( ; (p->next != NULL) && (p != puziko); p = p->next) {
+        prev = p;
+    }
+
+    if (p == root) {
+        root = p->next;
+        free(p->key);
+        free(p);
+    } else if (p->next == NULL) { // end node
+        free(p->key);
+        free(p);
+        prev->next = NULL;
+    } else { // middle node
+        next = p->next;
+        free(p->key);
+        free(p);
+        prev->next = next;
+    }
+    return root;
+}
+
+
 listnode *listnode_move(listnode *root, int k, int p)
 {
     if (k == p) return root;
@@ -145,6 +181,22 @@ int listnode_count(listnode *root)
     return count;
 }
 
+listnode *listnode_find(listnode *root, int val)
+{
+    listnode *p = root;
+
+    while (p!= NULL) {
+        if (p->val == val) return p;
+        p = p->next;
+    }
+    return NULL;
+}
+void listnode_queue(listnode *root)
+{
+    if (root->next)
+        listnode_queue(root->next);
+    cout << root->key << " " << root->val << endl;
+}
 void listnode_print(listnode *root)
 {
     listnode *p = root;
