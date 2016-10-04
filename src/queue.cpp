@@ -24,7 +24,7 @@ void queue_enqueu(queue *q, int val, char *key)
         q->head = listnode_create(val, key);
         q->tail = q->head;
     } else {
-        listnode_add(q->tail, val, key);
+        q->tail->next = listnode_create(val, key);
         q->tail = q->tail->next;
     }
     q->size++;
