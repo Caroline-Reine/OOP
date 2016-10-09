@@ -67,16 +67,24 @@ int main(int argc, char const *argv[])
     stack_print(s);
     stack_free(s);
 
-    queue *q = queue_create();
-    cout << "Create queue" << endl;
-    listnode_print(q->head);
-
-    queue_enqueu(q, 1, (char *) "FUCK");
-    cout << "Push queue" << endl;
-    listnode_print(q->head);
-    queue_enqueu(q, 12, (char *) "Good");
-    cout << "Push queue" << endl;
-    listnode_print(q->head);
+    struct queue *q;
+    int a;
+    q = (queue*) malloc(sizeof(queue));
+    init(q);
+    print(q);
+    for(int i=0;i<8;i++) {
+        printf("\nadd %d\n", i);
+        insert(q, i);
+        printf("Queue: ");
+        print(q);
+    }
+    printf("\n");
+    print(q);
+    while(q->frnt <= q->rear) {
+    a = removex(q);
+    printf("\nУдален элемент %d\n", a);
+    print(q);
+    }
 
     return 0;
 }

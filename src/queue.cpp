@@ -1,52 +1,47 @@
 #include "queue.h"
 
-
-queue *queue_create()
-{
-    queue *q = (queue *) malloc(sizeof(*q));
-
-    if (q) {
-        q->size = 0;
-        q->head = NULL;
-        q->tail = NULL;
-    }
-    return q;
+void init(struct queue *q) {
+  q->frnt = 1;
+  q->rear = 0;
+  return;
 }
 
-int queue_size(queue *q)
-{
-    return q->size;
+void insert(struct queue *q, int x) {
+  if(q->rear < QMAX-1) {
+    q->rear++;
+    q->qu[q->rear]=x;
+  }
+  else
+    printf("Очередь полна!\n");
+  return;
 }
 
-void queue_enqueu(queue *q, int val, char *key)
-{
-    if (q->head == NULL) {
-        q->head = listnode_create(val, key);
-        q->tail = q->head;
-    } else {
-        q->tail->next = listnode_create(val, key);
-        q->tail = q->tail->next;
-    }
-    q->size++;
+int isempty(struct queue *q) {
+  if(q->rear < q->frnt)    return(1);
+  else  return(0);
 }
 
-listnode *queue_dequeue(queue *q)
-{
-    if (q->size == 0) return NULL;
-    listnode *get = q->head;
-    q->head = q->head->next;
-    q->size--;
-    return get;
+void print(struct queue *q) {
+  int h;
+  if(isempty(q)==1) {
+    printf("Очередь пуста!\n");
+    return;
+  }
+  for(h = q->frnt; h<= q->rear; h++)
+    printf("%d ",q->qu[h]);
+  return;
 }
 
-void queue_free(queue *s)
-{
-    listnode *del;
-
-    while(s->size) {
-        del = queue_dequeue(s);
-        free(del->key);
-        free(del);
-    }
-    free(s);
+int removex(struct queue *q) {
+  int x, h;
+  if(isempty(q)==1) {
+    printf("Очередь пуста!\n");
+    return(0);
+  }
+  x = q->qu[q->frnt];
+  for(h = q->frnt; h < q->rear; h++) {
+    q->qu[h] = q->qu[h+1];
+  }
+  q->rear--;
+  return(x);
 }
