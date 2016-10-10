@@ -1,7 +1,8 @@
 #ifndef tPoint_H
 #define tPoint_H
 
-#endif
+#include <cmath>
+#include <cstdlib>
 
 class tPoint
 {
@@ -25,5 +26,10 @@ class tPoint
         void setVX(float vx);
         void setVY(float vy);
         void setM(float m);
+        void move(float DT);
+        void reverseVX();
+        void reverseVY();
 
 };
+
+#endif

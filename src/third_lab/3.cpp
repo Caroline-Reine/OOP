@@ -1,9 +1,9 @@
 /* -lGL -lGLU -lX11 -lglut */
 #include <GL/glut.h>
 #include <vector>
-#include <cstdlib>
-#include <cmath>
 #include "tPoint.h"
+
+#define count_vertex 1
 
 using namespace std;
 const float DT = 0.01;
@@ -42,44 +42,47 @@ void display()
 
 void timer(int = 0)
 {
-    for (vector<tPoint>::iterator i = p.begin(); i != p.end(); ++i)
-        for (vector<tPoint>::iterator j = p.begin(); j != p.end(); ++j)
-            if (i != j)
-            {
-                float d = sqrt((i->getX() - j->getX()) * (i->getX() - j->getX()) + (i->getY() - j->getY()) * (i->getY() - j->getY()));
-                if (d < i->getM() + j->getM())
-                {
+    for (vector<tPoint>::iterator i = p.begin(); i != p.end(); ++i) {
+        for (vector<tPoint>::iterator j = p.begin(); j != p.end(); ++j) {
+            if (i != j) {
+                float d = sqrt(pow(i->getX() - j->getX(), 2) +
+                                pow(i->getY() - j->getY(), 2));
+                if (d <= (i->getM() + j->getM())) {
                     float f = 99 * (i->getM() + j->getM() - d);
+                    // i->changeV();
                     i->setVX(i->getVX() + f * (i->getX() - j->getX()) / d / i->getM() * DT);
                     i->setVY(i->getVY() + f * (i->getY() - j->getY()) / d / i->getM() * DT);
+                    // j->changeV();
                     j->setVX(j->getVX() - f * (i->getX() - j->getX()) / d / j->getM() * DT);
                     j->setVY(j->getVY() - f * (i->getY() - j->getY()) / d / j->getM() * DT);
                 }
             }
-    for (vector<tPoint>::iterator i = p.begin(); i != p.end(); ++i)
-    {
-        i->setX(i->getX() + i->getVX() * DT);
-        i->setY(i->getY() + i->getVY() * DT);
-        if (i->getX() < 0)
-            i->setVX(i -> getVX() * (-1));
-        if (i->getY() < 0)
-            i->setVY(i -> getVY() * (-1));
-        if (i->getX() > 480)
-            i->setVX(i -> getVX() * (-1));
-        if (i->getY() > 480)
-            i->setVY(i -> getVY() * (-1));
+        }
+    }
+    for (vector<tPoint>::iterator i = p.begin(); i != p.end(); ++i) {
+        i->move(DT);
+
+        if (i->getX() < i->getM())
+            i->reverseVX();
+        if (i->getY() < i->getM())
+            i->reverseVY();
+        if (i->getX() > 480 - i->getM())
+            i->reverseVX();
+        if (i->getY() > 480 - i->getM())
+            i->reverseVY();
     }
     display();
-    glutTimerFunc(10, timer, 0);
+    glutTimerFunc(5, timer, 0);
 }
 
 int main(int argc, char **argv)
 {
     //tPoint p0 = tPoint(480 / 2, 480 / 2, 0, 0, 40);
     //p.push_back(p0);
-    for (int i = 0; i < 2000; ++i)
+    for (int i = 0; i < count_vertex; ++i)
     {
-        tPoint p0 = tPoint(rand() % 480, (rand() % 480), rand() % 100000 / 500.0 - 100, rand() % 100000 / 500.0 - 100, 1);
+        // tPoint p0 = tPoint(rand() % 480, (rand() % 480), rand() % 100000 / 500.0 - 100, rand() % 100000 / 500.0 - 100, 1);
+        tPoint p0 = tPoint();
         p.push_back(p0);
     }
     glutInit(&argc, argv);
