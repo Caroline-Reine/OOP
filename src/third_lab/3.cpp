@@ -60,8 +60,8 @@ void timer(int = 0)
         }
     }
     for (vector<tPoint>::iterator i = p.begin(); i != p.end(); ++i) {
-        // i->move(DT);
-        i->chaoticMove(DT);
+        i->chaoticMove();
+        //i->move(DT);
 
         if (i->getX() < i->getM())
             i->reverseVX();
@@ -71,6 +71,8 @@ void timer(int = 0)
             i->reverseVX();
         if (i->getY() > 480 - i->getM())
             i->reverseVY();
+
+        i->move(DT);
     }
     display();
     glutTimerFunc(5, timer, 0);

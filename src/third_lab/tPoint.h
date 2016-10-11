@@ -27,7 +27,7 @@ class tPoint
         void setVY(float vy);
         void setM(float m);
         void move(float DT);
-        void chaoticMove(float DT);
+        void chaoticMove();
         void reverseVX();
         void reverseVY();
 
