@@ -2,9 +2,9 @@
 
 tPoint::tPoint()
 {
-    this->vx = 30;
-    this->vy = 30;
-    this->m = 30;
+    this->vx = -100 + rand() % 200;
+    this->vy = -100 + rand() % 200;
+    this->m = 2;
     this->x = this->m + 1 + rand() % 480;
     this->y = this->m + 1 + rand() % 480;
 }
@@ -73,6 +73,11 @@ void tPoint::move(float DT)
 {
     this->setX(this->getX() + (this->getVX() * DT));
     this->setY(this->getY() + (this->getVY() * DT));
+}
+void tPoint::chaoticMove(float DT)
+{
+    this->x = this->x + (this->vx * DT) * ((rand() % 2) ? (-1) : (1));
+    this->y = this->y + (this->vy * DT) * ((rand() % 2) ? (-1) : (1));
 }
 
 void tPoint::reverseVX()

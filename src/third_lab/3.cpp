@@ -3,7 +3,7 @@
 #include <vector>
 #include "tPoint.h"
 
-#define count_vertex 1
+#define count_vertex 100
 
 using namespace std;
 const float DT = 0.01;
@@ -60,7 +60,8 @@ void timer(int = 0)
         }
     }
     for (vector<tPoint>::iterator i = p.begin(); i != p.end(); ++i) {
-        i->move(DT);
+        // i->move(DT);
+        i->chaoticMove(DT);
 
         if (i->getX() < i->getM())
             i->reverseVX();
