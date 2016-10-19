@@ -12,7 +12,7 @@ void insert(struct queue *q, int x) {
     q->qu[q->rear]=x;
   }
   else
-    printf("Очередь полна!\n");
+    printf("Queue is FULL\n");
   return;
 }
 
@@ -24,7 +24,7 @@ int isempty(struct queue *q) {
 void print(struct queue *q) {
   int h;
   if(isempty(q)==1) {
-    printf("Очередь пуста!\n");
+    printf("Queue is empty\n");
     return;
   }
   for(h = q->frnt; h<= q->rear; h++)
@@ -35,7 +35,7 @@ void print(struct queue *q) {
 int removex(struct queue *q) {
   int x, h;
   if(isempty(q)==1) {
-    printf("Очередь пуста!\n");
+    printf("Queue is empty\n");
     return(0);
   }
   x = q->qu[q->frnt];

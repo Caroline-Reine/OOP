@@ -3,16 +3,21 @@
 #include "list.h"
 #include "stack.h"
 #include "queue.h"
+#include <cstdlib>
+#include <ctime>
+
 #define n 10
+
 
 using namespace std;
 
 int main(int argc, char const *argv[])
 {
+	system("chcp 1251 > nul");
     srand(time(NULL));
     int *mass = new int[n];
     for (int i = 0; i < n; i++) {
-        mass[i] = random() % 50;
+        mass[i] = rand() % 50;
         std::cout << mass[i] << endl;
     }
     std::cout << "\n";
@@ -35,22 +40,22 @@ int main(int argc, char const *argv[])
     stack_print(s);
     cout << "Stack is created" << endl;
 
-    stack_push(s, 1, (char *) "lol");
+    stack_push(s, 1, (char *) "p1");
     cout << "stack push" << endl;
     stack_print(s);
-    stack_push(s, 1, (char *) "l23ol");
+    stack_push(s, 1, (char *) "p2");
     cout << "stack push" << endl;
     stack_print(s);
-    stack_push(s, 1, (char *) "l3ol");
+    stack_push(s, 1, (char *) "p3");
     cout << "stack push" << endl;
     stack_print(s);
-    stack_push(s, 1, (char *) "lo4l");
+    stack_push(s, 1, (char *) "p4");
     cout << "stack push" << endl;
     stack_print(s);
-    stack_push(s, 1, (char *) "l5ol");
+    stack_push(s, 1, (char *) "p5");
     cout << "stack push" << endl;
     stack_print(s);
-    stack_push(s, 1, (char *) "lo6l");
+    stack_push(s, 1, (char *) "p6");
     cout << "stack push" << endl;
     stack_print(s);
     stack_pop(s);
@@ -82,7 +87,7 @@ int main(int argc, char const *argv[])
     print(q);
     while(q->frnt <= q->rear) {
     a = removex(q);
-    printf("\nУдален элемент %d\n", a);
+    printf("\nDel. elem %d\n", a);
     print(q);
     }
 
